@@ -17,6 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        guard let isInitiated = Settings.getBool(key: Settings.IS_INITIATED) else {
+            return true
+        }
+        
+        if !isInitiated {
+            DB.initMockData()
+            Settings.saveBool(key: Settings.IS_INITIATED, value: true)
+        }
+        
         return true
     }
 
